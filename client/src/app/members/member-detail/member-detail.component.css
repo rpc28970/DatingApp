@@ -1,8 +1,10 @@
 .img-thumbnail {
-    margin: 25px;
-    width: 85%;
-    height: 85%;
-}
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 90%;
+ }
 
 .card-body {
     padding: 0 25px;
