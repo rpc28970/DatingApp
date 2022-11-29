@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using API.Services;
 using AutoMapper;
 using API.Helpers;
+using API.SignalR;
 
 namespace API.Extensions
 {
@@ -25,6 +26,8 @@ namespace API.Extensions
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddSignalR();
+            services.AddSingleton<PresenceTracker>();
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
