@@ -1,0 +1,12 @@
+img.img-thumbnail {
+    height: 150px;
+    min-width: 150px;
+    margin-bottom: 2px;
+}
+
+body{
+    padding: 2rem 0rem;
+  }
+  .image-parent {
+    max-width: 100px;
+  }
