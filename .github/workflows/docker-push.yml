@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
-      #Should Use A Different Branch
+      - 'master'
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
