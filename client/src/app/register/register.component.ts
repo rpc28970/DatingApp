@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
-  registerForm: FormGroup;
-  maxDate: Date;
+  registerForm: FormGroup = new FormGroup({});
+  maxDate: Date = new Date();
   validationErrors: string[] = [];
 
   constructor(
@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
@@ -58,14 +57,27 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.accountService.register(this.registerForm.value).subscribe({
-      next: response => {this.router.navigateByUrl('/members')},
-      error: error => this.validationErrors = error
+    const dob = this.getDateOnly(this.registerForm.controls['dateOfBirth'].value);
+    const values = {...this.registerForm.value, dateOfBirth: dob};
+    this.accountService.register(values).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/members')
+      },
+      error: error => {
+        this.validationErrors = error
+      } 
     })
   }
 
   cancel() {
     this.cancelRegister.emit(false);
+  }
+
+  private getDateOnly(dob: string | undefined) {
+    if (!dob) return;
+    let theDob = new Date(dob);
+    return new Date(theDob.setMinutes(theDob.getMinutes()-theDob.getTimezoneOffset()))
+      .toISOString().slice(0,10);
   }
 
 }
